@@ -81,11 +81,12 @@ public class HttpResponse {
 	public void sendErrorResponse(String i_status) {
 		try {
 			// Send the body of the error
-			String entityBody = "<HTML><BODY><H1>" + i_status
+			String entityBody = "<!DOCTYPE html><HTML><BODY><H1>" + i_status
 					+ "</H1></BODY></HTML>";
 
 			// Send the status line.
-			os.writeBytes(protocol + " " + i_status + ConfigUtil.CRLF);
+			String status = protocol + " " + i_status + ConfigUtil.CRLF;
+			os.writeBytes(status);
 
 			// Send the content-length header
 			String contentLength = "Content-Length: " + entityBody.length()
@@ -98,8 +99,10 @@ public class HttpResponse {
 
 			// Write the error body
 			os.writeBytes(entityBody);
+			
+			//Print status to console
+			System.out.println(status);
 
-			// System.out.println(entityBody);
 
 		} catch (Exception e) {
 			System.err.println("Could not send error: " + e);
@@ -256,7 +259,7 @@ public class HttpResponse {
 
 				while (line != null) {
 					sb.append(line);
-					sb.append(System.lineSeparator());
+					//sb.append(System.lineSeparator());
 					line = br.readLine();
 				}
 				br.close();

@@ -20,6 +20,7 @@ public class WebServer {
 
 		// Establish the listen socket.
 		ServerSocket socket = new ServerSocket(ConfigUtil.getPort());
+		System.out.println("Listening on port: " + ConfigUtil.getPort());
 		threadQueue = new HashMap<String, TCPConnection>();
 		try {
 			ConfigUtil.init();
@@ -56,9 +57,9 @@ public class WebServer {
 	/*
 	 * Adds this thread (by new socket) to the queue
 	 */
-	public static synchronized void incrementThreadQueue(Socket socket,
+	public static synchronized void incrementThreadQueue(Socket i_socket,
 			TCPConnection i_connection) {
-		String host = socket.getInetAddress().getHostAddress();
+		String host = i_socket.getRemoteSocketAddress().toString();
 		threadQueue.put(host, i_connection);
 		numOfThreads++;
 
@@ -68,8 +69,8 @@ public class WebServer {
 	 * Dequeues a thread from the queue (this socket) - due to connection time
 	 * out or dead connection
 	 */
-	public static synchronized void decrementThreadQueue(Socket socket) {
-		String host = socket.getInetAddress().getHostAddress();
+	public static synchronized void decrementThreadQueue(Socket i_socket) {
+		String host = i_socket.getRemoteSocketAddress().toString();
 		threadQueue.remove(host);
 		numOfThreads--;
 	}
@@ -86,7 +87,7 @@ public class WebServer {
 	 * request by an old connection
 	 */
 	public static synchronized boolean isNewConnection(Socket i_socket) {
-		String host = i_socket.getInetAddress().getHostAddress();
+		String host = i_socket.getRemoteSocketAddress().toString();
 		return !threadQueue.containsKey(host);
 
 	}
@@ -95,7 +96,7 @@ public class WebServer {
 	 * Returns the TCP connection associated with this socket
 	 */
 	public static synchronized TCPConnection getConnection(Socket i_socket) {
-		String host = i_socket.getInetAddress().getHostAddress();
+		String host = i_socket.getRemoteSocketAddress().toString();
 		return threadQueue.get(host);
 	}
 

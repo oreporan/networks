@@ -48,8 +48,8 @@ final class HttpRequest {
 			if (request == null) {
 				throw new BadRequestException();
 			}
-			// Validate the request
-			validateRequest(request);
+			// Trace the request
+			System.out.println(request);
 
 			// Loop through the request headers
 			String requestHeaders = br.readLine();
@@ -77,6 +77,9 @@ final class HttpRequest {
 				processRequestBody(br, contentLength);
 
 			}
+
+			// Validate the request
+			validateRequest(request);
 
 			// Send the response for this request
 			sendResponse();
