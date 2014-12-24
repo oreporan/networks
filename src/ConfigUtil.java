@@ -52,8 +52,9 @@ public class ConfigUtil {
 	public static final String CHUNK_HEADER_KEY = "chunked";
 	public static final String CHUNK_HEADER_VALUE = "yes";
 	public static final String CONTENT_LENGTH_KEY = "Content-Length";
-	public static final int TIME_LAP_SEC = 1 * 1000;
-	public static final int CONNECTION_TIMEOUT = 5;
+
+	// After 15 seconds, kill the TCP connection
+	public static final int CONNECTION_TIMEOUT = 10 * 1000;
 
 	public static final Object CONNECTION = "Connection";
 

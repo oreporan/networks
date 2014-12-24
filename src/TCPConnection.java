@@ -1,4 +1,5 @@
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.PushbackInputStream;
 import java.net.Socket;
 
@@ -15,7 +16,7 @@ import java.net.Socket;
  */
 public class TCPConnection implements Runnable {
 	Socket socket;
-	int connectionTimeOut = 0;
+	private long timeStamp;
 
 	public TCPConnection(Socket i_socket) {
 		this.socket = i_socket;
@@ -44,20 +45,35 @@ public class TCPConnection implements Runnable {
 				// Send response
 				sendResponse(request, response);
 
+				// Begin time stamp
+				setTimeStamp(System.currentTimeMillis());
+
 				if (request.isPersistent()) {
-					// block until next read
 					byteToRead = sis.read();
 				}
 			}
-			// Remove this thread
-			System.out.println(socket.getRemoteSocketAddress().toString()
-					+ " has left the server" + ConfigUtil.CRLF);
-			WebServer.decrementThreadQueue(this.socket);
-			socket.close();
+			closeConnection();
 
 		} catch (Exception ex) {
 			System.err.println("Problem connecting to socket - " + ex);
 
+		}
+	}
+
+	/*
+	 * Closes this connection, can also be called by the server on Timeout
+	 */
+	public void closeConnection() {
+		if (socket.isConnected()) {
+			String host = socket.getRemoteSocketAddress().toString();
+			System.out.println(host + " has timed out" + ConfigUtil.CRLF);
+			try {
+				socket.close();
+			} catch (IOException e) {
+				System.err.println("Error closing socket - " + host
+						+ ", reason: " + e.getLocalizedMessage());
+			}
+			WebServer.decrementThreadQueue(host);
 		}
 	}
 
@@ -68,30 +84,47 @@ public class TCPConnection implements Runnable {
 	 * @param res
 	 * @throws InternalErrorException
 	 */
-	private void sendResponse(HttpRequest req, HttpResponse res)
-			throws InternalErrorException {
-		if (req.getErrorMessage() == null) {
-			String requestMethod = req.getRequestMethod();
-			if (requestMethod.equals(ConfigUtil.GET)) {
-				// GET request
-				res.sendGetResponse(req.getParamsMapGET());
-			} else if (requestMethod.equals(ConfigUtil.POST)) {
-				// POST request
-				res.sendPostResponse(req.getParamsMapPOST());
-			} else if (requestMethod.equals(ConfigUtil.OPTIONS)) {
-				// OPTIONS request
-				res.sendOptionsResponse();
-			} else if (requestMethod.equals(ConfigUtil.HEAD)) {
-				// HEAD request
-				res.sendHeadResponse();
-			} else if (requestMethod.equals(ConfigUtil.TRACE)) {
-				// TRACE request
-				res.sendTraceResponse(requestMethod, req.getHeadersMap());
-			}
+	private void sendResponse(HttpRequest req, HttpResponse res) {
+		try {
+			if (req.getErrorMessage() == null) {
+				String requestMethod = req.getRequestMethod();
+				if (requestMethod.equals(ConfigUtil.GET)) {
+					// GET request
+					res.sendGetResponse(req.getParamsMapGET());
+				} else if (requestMethod.equals(ConfigUtil.POST)) {
+					// POST request
+					res.sendPostResponse(req.getParamsMapPOST());
+				} else if (requestMethod.equals(ConfigUtil.OPTIONS)) {
+					// OPTIONS request
+					res.sendOptionsResponse();
+				} else if (requestMethod.equals(ConfigUtil.HEAD)) {
+					// HEAD request
+					res.sendHeadResponse();
+				} else if (requestMethod.equals(ConfigUtil.TRACE)) {
+					// TRACE request
+					res.sendTraceResponse(requestMethod, req.getHeadersMap());
+				}
 
-		} else {
-			// Invalid HTTP request
-			res.sendErrorResponse(req.getErrorMessage());
+			} else {
+				// Invalid HTTP request
+				res.sendErrorResponse(req.getErrorMessage());
+			}
+		} catch (InternalErrorException e) {
+			// Internal Server Error
+			res.sendErrorResponse(e.getMessage());
 		}
+	}
+
+	public boolean isThisConnectionTimedOut() {
+		long currentTime = System.currentTimeMillis();
+		return (this.getTimeStamp() != 0 && (currentTime - this.getTimeStamp() > ConfigUtil.CONNECTION_TIMEOUT));
+	}
+
+	public long getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(long timeStamp) {
+		this.timeStamp = timeStamp;
 	}
 }
