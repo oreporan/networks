@@ -16,7 +16,7 @@ public class WebServer {
 	// Holds the queue of threads that are dealing with TCP connections
 	public static HashMap<String, TCPConnection> threadQueue;
 
-	public static void main(String argv[]) throws Exception {
+	public static void main(String args[]) throws Exception {
 
 		// Establish the listen socket.
 		ServerSocket socket = new ServerSocket(ConfigUtil.getPort());
@@ -75,7 +75,7 @@ public class WebServer {
 	}
 
 	/*
-	 * Returns the number of threads in the queue (synchronized)
+	 * Returns the number of threads in the queue (synchronized).
 	 */
 	public static synchronized int getNumberOfThreads() {
 		return numOfThreads;
@@ -83,7 +83,7 @@ public class WebServer {
 
 	/*
 	 * Returns true if this socket is a new TCP connection (and not another
-	 * request by an old connection
+	 * request by an old connection).
 	 */
 	public static synchronized boolean isNewConnection(Socket i_socket) {
 		String host = i_socket.getInetAddress().getHostAddress();
@@ -92,7 +92,7 @@ public class WebServer {
 	}
 
 	/*
-	 * Returns the TCP connection associated with this socket
+	 * Returns the TCP connection associated with this socket.
 	 */
 	public static synchronized TCPConnection getConnection(Socket i_socket) {
 		String host = i_socket.getInetAddress().getHostAddress();

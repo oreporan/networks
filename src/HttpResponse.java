@@ -12,6 +12,7 @@ import java.util.Map;
  *
  */
 public class HttpResponse {
+	StatusLine statusLine;
 	String path;
 	String protocol;
 	String ok_status;
@@ -30,11 +31,11 @@ public class HttpResponse {
 
 	}
 
+
+
 	/**
 	 * Send a Get response
-	 * 
-	 * @param socket
-	 * @param i_path
+	 *
 	 * @param paramsMapGET
 	 * @throws InternalErrorException
 	 */
@@ -73,10 +74,8 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Error Response
-	 * 
-	 * @param i_socket
+	 *
 	 * @param i_status
-	 * @param i_protocol
 	 */
 	public void sendErrorResponse(String i_status) {
 		try {
@@ -110,9 +109,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Post response
-	 * 
-	 * @param i_socket
-	 * @param i_requestPath
+	 *
 	 * @param i_paramsMapPOST
 	 * @throws InternalErrorException
 	 */
@@ -152,8 +149,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Head Response
-	 * 
-	 * @param socket
+	 *
 	 * @throws InternalErrorException
 	 */
 	public void sendHeadResponse() throws InternalErrorException {
@@ -163,12 +159,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Trace response
-	 * 
-	 * @param socket
-	 * @param requestMethod
-	 * @param requestPath
-	 * @param requestProtocol
-	 * @param headersMap
+	 *
 	 * @throws InternalErrorException
 	 */
 	public void sendTraceResponse(String i_requestMethod,
