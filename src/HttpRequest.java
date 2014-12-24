@@ -27,6 +27,7 @@ final class HttpRequest {
 	String requestProtocol;
 	private boolean acceptChunks = false;
 	public boolean isPersistent = false;
+	private String errorMessage;
 
 	/*
 	 * Constructor - accepts a InputStream and OutputStream for sending to the
@@ -84,11 +85,27 @@ final class HttpRequest {
 			validateRequest(request);
 
 		} catch (WebServerException ex) {
-			new HttpResponse(sos, null, ConfigUtil.DEFAULT_PROTOCOL)
-					.sendErrorResponse(ex.getMessage());
+			this.setErrorMessage(ex.getMessage());
 		} catch (Exception e) {
+			System.err.println("Error processing request:"
+					+ e.getLocalizedMessage());
 		}
 
+	}
+
+	/*
+	 * When the request is invalid - set the error message
+	 */
+	private void setErrorMessage(String i_ex) {
+		this.errorMessage = i_ex;
+
+	}
+
+	/*
+	 * Get the error message of this request - when one exists
+	 */
+	public String getErrorMessage() {
+		return this.errorMessage;
 	}
 
 	private void processRequestBody(BufferedReader br, String contentLength)

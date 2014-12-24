@@ -62,6 +62,7 @@ public class WebServer {
 		String host = i_socket.getRemoteSocketAddress().toString();
 		threadQueue.put(host, i_connection);
 		numOfThreads++;
+		System.out.println(host + " has connected to the server!");
 
 	}
 

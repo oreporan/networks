@@ -23,11 +23,11 @@ public class TCPConnection implements Runnable {
 
 	@Override
 	public void run() {
+		DataOutputStream sos;
 		try {
 			PushbackInputStream sis = new PushbackInputStream(
 					socket.getInputStream());
-			DataOutputStream sos = new DataOutputStream(
-					socket.getOutputStream());
+			sos = new DataOutputStream(socket.getOutputStream());
 			int byteToRead = sis.read();
 			while (byteToRead > -1) {
 				// Unread
@@ -36,10 +36,10 @@ public class TCPConnection implements Runnable {
 				// Create request
 				HttpRequest request = new HttpRequest(sis, sos);
 				request.processRequest();
-				//Create response
+				// Create response
 				HttpResponse response = new HttpResponse(sos,
 						request.getRequestPath(), request.getRequestProtocol());
-				//Send response
+				// Send response
 				sendResponse(request, response);
 
 				// To know if the connection wants to stay alive
@@ -57,8 +57,9 @@ public class TCPConnection implements Runnable {
 			// Remove this thread
 			WebServer.decrementThreadQueue(this.socket);
 
-		} catch (Exception e) {
-			System.err.println("Problem connecting to socket - " + e);
+		} catch (Exception ex) {
+			System.err.println("Problem connecting to socket - " + ex);
+
 		}
 	}
 
@@ -73,22 +74,26 @@ public class TCPConnection implements Runnable {
 			throws InternalErrorException {
 		String requestMethod = req.getRequestMethod();
 
-		if (requestMethod.equals(ConfigUtil.GET)) {
-			// GET request
-			res.sendGetResponse(req.getParamsMapGET());
-		} else if (requestMethod.equals(ConfigUtil.POST)) {
-			// POST request
-			res.sendPostResponse(req.getParamsMapPOST());
-		} else if (requestMethod.equals(ConfigUtil.OPTIONS)) {
-			// OPTIONS request
-			res.sendOptionsResponse();
-		} else if (requestMethod.equals(ConfigUtil.HEAD)) {
-			// HEAD request
-			res.sendHeadResponse();
-		} else if (requestMethod.equals(ConfigUtil.TRACE)) {
-			// TRACE request
-			res.sendTraceResponse(requestMethod, req.getHeadersMap());
+		if (req.getErrorMessage() == null) {
+			if (requestMethod.equals(ConfigUtil.GET)) {
+				// GET request
+				res.sendGetResponse(req.getParamsMapGET());
+			} else if (requestMethod.equals(ConfigUtil.POST)) {
+				// POST request
+				res.sendPostResponse(req.getParamsMapPOST());
+			} else if (requestMethod.equals(ConfigUtil.OPTIONS)) {
+				// OPTIONS request
+				res.sendOptionsResponse();
+			} else if (requestMethod.equals(ConfigUtil.HEAD)) {
+				// HEAD request
+				res.sendHeadResponse();
+			} else if (requestMethod.equals(ConfigUtil.TRACE)) {
+				// TRACE request
+				res.sendTraceResponse(requestMethod, req.getHeadersMap());
+			}
 
 		}
+		// Invalid HTTP request
+		res.sendErrorResponse(req.getErrorMessage());
 	}
 }
