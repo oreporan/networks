@@ -64,9 +64,12 @@ public class HttpResponse {
 
 			// Send the content of the HTTP.
 			os.writeBytes(entityBody);
+			
+			//Print status to console
+			System.out.println(ConfigUtil.STATUS_OK);
+
 
 		} catch (Exception e) {
-			System.err.println("Error sending response - " + e);
 			throw new InternalErrorException();
 		}
 	}

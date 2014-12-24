@@ -23,18 +23,20 @@ public class TCPConnection implements Runnable {
 
 	@Override
 	public void run() {
-		DataOutputStream sos;
 		try {
 			PushbackInputStream sis = new PushbackInputStream(
 					socket.getInputStream());
-			sos = new DataOutputStream(socket.getOutputStream());
+			DataOutputStream sos = new DataOutputStream(
+					socket.getOutputStream());
 			int byteToRead = sis.read();
 			while (byteToRead > -1) {
-				// Unread
+
+				// Unread and empty the byte
 				sis.unread(byteToRead);
+				byteToRead = -1;
 
 				// Create request
-				HttpRequest request = new HttpRequest(sis, sos);
+				HttpRequest request = new HttpRequest(sis);
 				request.processRequest();
 				// Create response
 				HttpResponse response = new HttpResponse(sos,
@@ -42,20 +44,16 @@ public class TCPConnection implements Runnable {
 				// Send response
 				sendResponse(request, response);
 
-				// To know if the connection wants to stay alive
-				if (!request.isPersistent()) {
-					socket.close();
-					WebServer.decrementThreadQueue(this.socket);
-					System.out.println("TCP Connection has died on client: "
-							+ socket.getLocalAddress().getHostAddress());
-				} else {
+				if (request.isPersistent()) {
+					// block until next read
 					byteToRead = sis.read();
 				}
 			}
-			// No more bytes to read - client closed the connection
-			socket.close();
 			// Remove this thread
+			System.out.println(socket.getRemoteSocketAddress().toString()
+					+ " has left the server" + ConfigUtil.CRLF);
 			WebServer.decrementThreadQueue(this.socket);
+			socket.close();
 
 		} catch (Exception ex) {
 			System.err.println("Problem connecting to socket - " + ex);
@@ -72,9 +70,8 @@ public class TCPConnection implements Runnable {
 	 */
 	private void sendResponse(HttpRequest req, HttpResponse res)
 			throws InternalErrorException {
-		String requestMethod = req.getRequestMethod();
-
 		if (req.getErrorMessage() == null) {
+			String requestMethod = req.getRequestMethod();
 			if (requestMethod.equals(ConfigUtil.GET)) {
 				// GET request
 				res.sendGetResponse(req.getParamsMapGET());
@@ -92,8 +89,9 @@ public class TCPConnection implements Runnable {
 				res.sendTraceResponse(requestMethod, req.getHeadersMap());
 			}
 
+		} else {
+			// Invalid HTTP request
+			res.sendErrorResponse(req.getErrorMessage());
 		}
-		// Invalid HTTP request
-		res.sendErrorResponse(req.getErrorMessage());
 	}
 }

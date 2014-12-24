@@ -20,7 +20,8 @@ public class WebServer {
 
 		// Establish the listen socket.
 		ServerSocket socket = new ServerSocket(ConfigUtil.getPort());
-		System.out.println("Listening on port: " + ConfigUtil.getPort());
+		System.out.println("Listening on port: " + ConfigUtil.getPort()
+				+ ConfigUtil.CRLF);
 		threadQueue = new HashMap<String, TCPConnection>();
 		try {
 			ConfigUtil.init();
@@ -46,7 +47,7 @@ public class WebServer {
 					thread.start();
 					incrementThreadQueue(connection, client);
 					System.out.println("Number of threads running: "
-							+ numOfThreads);
+							+ numOfThreads + ConfigUtil.CRLF);
 				}
 
 			}
@@ -62,7 +63,8 @@ public class WebServer {
 		String host = i_socket.getRemoteSocketAddress().toString();
 		threadQueue.put(host, i_connection);
 		numOfThreads++;
-		System.out.println(host + " has connected to the server!");
+		System.out.println(host + " has connected to the server!"
+				+ ConfigUtil.CRLF);
 
 	}
 
