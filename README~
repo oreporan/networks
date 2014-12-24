@@ -1,0 +1,73 @@
+Lab1 - WebServer Assignment
+
+--==Authors==--
+Ore Poran - 026488858
+Yoni Kilzi - 
+
+Classes:
+WebServer (main)
+TCPConnection
+HttpRequest
+HttpResponse
+
+Utility Class:
+ConfigUtil (static)
+
+Exception Classes:
+WebServerException (abstract)
+InternalErrorException
+NotFoundException
+BadRequestException
+
+Files:
+compile.bat
+run.bat
+README.txt
+
+----------------Steps to run the webserver -----------------
+
+1. Create a directory 'serverroot' in your root directory C:\
+2. Create an HTML file 'index.html' in your new serverroot directory
+3. Compile the WebServer.java class
+4. Run the WebServer class
+5. Go to your browser and type "localhost:8080"
+
+-----------------------------------------------------------
+
+
+============== WebServer ===============
+ * The main class - Web server accepts connections and creates TCP connection that handle each
+ * request. The threadQueue max size is decided in the config.ini file, and each
+ * new connection (not new request!) gets a new thread Requests that belong to
+ * the same IP, go to the thread that is handling this TCP connection
+
+============ HttpRequest ===============
+ * This class is initiated by the TCP connection class and parses/handles a
+ * request. It reads the input stream, validates the request and the headers,
+ * and eventually creates a HttpResponse instance. In the case where the request is
+ * not valid, or any of the validations fail (i.e file not found, or unsupported
+ * method) - an error is thrown which calls for an Http Error Response method
+ * with the appropriate text. In the case where the connection with the
+ * client is lost at some time, an exception is thrown.
+
+============ HttpResponse ===============
+ * This class writes to the output stream of the socket given by the request. It
+ * handles all the supported responses as configured by the config Util class.
+
+============ ConfigUtil ===============
+ * This class holds all the constance variables of the project, 
+ * including the Config.ini variables that were set.
+
+============ TCPConnection ===============
+ * Handles a client request(s), If there is something to read in the socket, this
+ * client creates an HTTP request instance. In the case where the protocol is
+ * non-persistent, the thread dequeues itself from the Webserver thread queue
+ * after handling the request, and this TCP connection dies
+ * This connection also dequeues itself when the client stops the connection
+
+=============WebServerException===============
+ * This class and all its sub-classes send an HTTPErrorResponse to the socket, with the appropriate text.
+
+
+
+
