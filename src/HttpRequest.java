@@ -16,24 +16,24 @@ import java.util.*;
 final class HttpRequest {
 
 	HashMap<String, String> headersMap;
+
 	HashMap<String, String> paramsMapGET;
+
 	HashMap<String, String> paramsMapPOST;
-	private String requestMethod;
-	private String requestPath;
-	DataOutputStream sos;
+	String requestMethod;
+	String requestPath;
 	PushbackInputStream sis;
-	private String requestProtocol;
-	private boolean acceptChunks = false;
+	String requestProtocol;
 	public boolean isPersistent = false;
+	private String errorMessage;
 
 	/*
 	 * Constructor - accepts a InputStream and OutputStream for sending to the
 	 * response
 	 */
-	public HttpRequest(PushbackInputStream i_sis, DataOutputStream i_sos)
+	public HttpRequest(PushbackInputStream i_sis)
 			throws Exception {
 		this.sis = i_sis;
-		this.sos = i_sos;
 		headersMap = new HashMap<String, String>();
 	}
 
@@ -44,29 +44,26 @@ final class HttpRequest {
 	public void processRequest() throws IOException {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(sis));
-			String request = br.readLine(); // Get the request
-			if (request == null) {
+			String request = null;
+			if (br.ready()) {
+				request = br.readLine(); // Get the request
+				System.out.println(request);
+			} else {
 				throw new BadRequestException();
 			}
-			// Validate the request
-			validateRequest(request);
 
 			// Loop through the request headers
-			String requestHeaders = br.readLine();
-			while (requestHeaders != ConfigUtil.CRLF
-					&& requestHeaders.split(": ").length >= 2) {
-				String[] keyValue = requestHeaders.split(": ");
-				headersMap.put(keyValue[0], keyValue[1]);
-				requestHeaders = br.readLine();
-				// Print request to Console
-				System.out.println(requestHeaders);
+			if (br.ready()) {
+				String requestHeaders = br.readLine();
+				while (requestHeaders != ConfigUtil.CRLF
+						&& requestHeaders.split(": ").length >= 2) {
+					String[] keyValue = requestHeaders.split(": ");
+					headersMap.put(keyValue[0], keyValue[1]);
+					requestHeaders = br.readLine();
+					// Print request to Console
+					System.out.println(requestHeaders);
 
-			}
-
-			// Mark if this request wants response in chunks
-			String chunk = headersMap.get(ConfigUtil.CHUNK_HEADER_KEY);
-			if (chunk != null && chunk.equals(ConfigUtil.CHUNK_HEADER_VALUE)) {
-				acceptChunks = true;
+				}
 			}
 
 			// Get content-length of the body of the request
@@ -78,15 +75,31 @@ final class HttpRequest {
 
 			}
 
-			// Send the response for this request
-			sendResponse();
+			// Validate the request
+			validateRequest(request);
 
 		} catch (WebServerException ex) {
-			new HttpResponse(sos, null, ConfigUtil.DEFAULT_PROTOCOL)
-					.sendErrorResponse(ex.getMessage());
+			this.setErrorMessage(ex.getMessage());
 		} catch (Exception e) {
+			System.err.println("Error processing request:"
+					+ e.getLocalizedMessage());
 		}
 
+	}
+
+	/*
+	 * When the request is invalid - set the error message
+	 */
+	private void setErrorMessage(String i_ex) {
+		this.errorMessage = i_ex;
+
+	}
+
+	/*
+	 * Get the error message of this request - when one exists
+	 */
+	public String getErrorMessage() {
+		return this.errorMessage;
 	}
 
 	private void processRequestBody(BufferedReader br, String contentLength)
@@ -113,32 +126,6 @@ final class HttpRequest {
 
 	}
 
-	/*
-	 * Sends the response via the HttpResponse class
-	 */
-	private void sendResponse() throws Exception {
-		HttpResponse response = new HttpResponse(sos, requestPath,
-				requestProtocol);
-		if (this.requestMethod.equals(ConfigUtil.GET)) {
-			// GET request
-			response.sendGetResponse(paramsMapGET);
-		} else if (this.requestMethod.equals(ConfigUtil.POST)) {
-			// POST request
-			response.sendPostResponse(paramsMapPOST);
-		} else if (this.requestMethod.equals(ConfigUtil.OPTIONS)) {
-			// OPTIONS request
-			response.sendOptionsResponse();
-		} else if (this.requestMethod.equals(ConfigUtil.HEAD)) {
-			// HEAD request
-			response.sendHeadResponse();
-		} else if (this.requestMethod.equals(ConfigUtil.TRACE)) {
-			// TRACE request
-			response.sendTraceResponse(this.requestMethod, headersMap);
-
-		}
-
-	}
-
 	private void validateRequest(String request) throws WebServerException {
 
 		// Begin validation on request
@@ -150,7 +137,6 @@ final class HttpRequest {
 			validateHttpProtocol(requestArr[2]);
 			validateHttpMethod(requestArr[0]);
 			validateHttpPath(requestArr[1]);
-			System.out.println(request);
 		}
 
 	}
@@ -249,11 +235,34 @@ final class HttpRequest {
 
 	public void setRequestProtocol(String requestProtocol) {
 		this.requestProtocol = requestProtocol;
-		// Mark if his protocol is 1.0 or 1.1
-		if (requestProtocol.endsWith("1")) {
-			// This is 1.1 protocol
-			isPersistent = true;
-		}
 	}
 
+	public HashMap<String, String> getParamsMapGET() {
+		return paramsMapGET;
+	}
+
+	public HashMap<String, String> getParamsMapPOST() {
+		return paramsMapPOST;
+	}
+
+	public HashMap<String, String> getHeadersMap() {
+		return headersMap;
+	}
+
+	/*
+	 * Returns true if the TCP connection wants to stay alive
+	 */
+	public boolean isPersistent() {
+		String connection = headersMap.get(ConfigUtil.CONNECTION);
+		return (connection != null && headersMap.get(ConfigUtil.CONNECTION)
+				.equalsIgnoreCase(ConfigUtil.KEEP_ALIVE));
+	}
+
+	/*
+	 * Mark if this request wants response in chunks
+	 */
+	public boolean supportChunks() {
+		String chunk = headersMap.get(ConfigUtil.CHUNK_HEADER_KEY);
+		return (chunk != null && chunk.equals(ConfigUtil.CHUNK_HEADER_VALUE));
+	}
 }

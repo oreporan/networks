@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64b754c0-013d-4476-a3af-234b15040c27" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/EStatusCodes.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Header.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/HeaderIterator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/HttpMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/StatusLine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/BadRequestException.class" afterPath="$PROJECT_DIR$/bin/BadRequestException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/ConfigUtil.class" afterPath="$PROJECT_DIR$/bin/ConfigUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/HttpRequest.class" afterPath="$PROJECT_DIR$/bin/HttpRequest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/HttpResponse.class" afterPath="$PROJECT_DIR$/bin/HttpResponse.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/InternalErrorException.class" afterPath="$PROJECT_DIR$/bin/InternalErrorException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/NotFoundException.class" afterPath="$PROJECT_DIR$/bin/NotFoundException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/TCPConnection.class" afterPath="$PROJECT_DIR$/bin/TCPConnection.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/UnimplementedMethodException.class" afterPath="$PROJECT_DIR$/bin/UnimplementedMethodException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/WebServer.class" afterPath="$PROJECT_DIR$/bin/WebServer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/WebServerException.class" afterPath="$PROJECT_DIR$/bin/WebServerException.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/HttpResponse.java" afterPath="$PROJECT_DIR$/src/HttpResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ProtocolVersion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StatusLine.java" afterPath="$PROJECT_DIR$/src/StatusLine.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/WebServer.java" afterPath="$PROJECT_DIR$/src/WebServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lab1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,12 +30,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="WebServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HttpRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/HttpRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="4301">
+              <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotFoundException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/NotFoundException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/WebServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.349315" vertical-offset="334" max-vertical-offset="1785">
-              <caret line="67" column="41" selection-start-line="67" selection-start-column="41" selection-end-line="67" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2091">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TCPConnection.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/TCPConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.018835617" vertical-offset="232" max-vertical-offset="2193">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <folding>
+                <element signature="e#629#630#0" expanded="true" />
+                <element signature="e#658#659#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,13 +76,12 @@
       <file leaf-file-name="HttpResponse.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HttpResponse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3757">
-              <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="4386">
+              <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
               <folding>
                 <element signature="docComment;method#sendGetResponse#0;class#HttpResponse#0" expanded="false" />
                 <element signature="docComment;method#sendErrorResponse#0;class#HttpResponse#0" expanded="false" />
                 <element signature="docComment;method#sendPostResponse#0;class#HttpResponse#0" expanded="false" />
-                <element signature="method#sendPostResponse#0;class#HttpResponse#0" expanded="false" />
                 <element signature="docComment;method#sendHeadResponse#0;class#HttpResponse#0" expanded="false" />
                 <element signature="docComment;method#sendTraceResponse#0;class#HttpResponse#0" expanded="false" />
               </folding>
@@ -73,21 +89,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Header.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Header.java">
+      <file leaf-file-name="HttpMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/HttpMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
-              <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="952">
+              <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConfigUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ConfigUtil.java">
+      <file leaf-file-name="StatusLine.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/StatusLine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="334" max-vertical-offset="2040">
-              <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding>
+                <element signature="method#StatusLine#0;class#StatusLine#0" expanded="false" />
+                <element signature="method#StatusLine#1;class#StatusLine#0" expanded="false" />
+                <element signature="e#628#629#0" expanded="true" />
+                <element signature="e#715#716#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProtocolVersion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ProtocolVersion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+              <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -103,13 +134,13 @@
       <list>
         <option value="$PROJECT_DIR$/src/HttpResponse.java" />
         <option value="$PROJECT_DIR$/src/ProtcolVersion.java" />
-        <option value="$PROJECT_DIR$/src/ProtocolVersion.java" />
         <option value="$PROJECT_DIR$/src/EStatusCodes.java" />
         <option value="$PROJECT_DIR$/src/Header.java" />
         <option value="$PROJECT_DIR$/src/HttpMessage.java" />
         <option value="$PROJECT_DIR$/src/HeaderIterator.java" />
         <option value="$PROJECT_DIR$/src/StatusLine.java" />
         <option value="$PROJECT_DIR$/src/WebServer.java" />
+        <option value="$PROJECT_DIR$/src/ProtocolVersion.java" />
       </list>
     </option>
   </component>
@@ -475,29 +506,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HttpMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61130136" vertical-offset="0" max-vertical-offset="952">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/StatusLine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37842464" vertical-offset="0" max-vertical-offset="584">
-          <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
-          <folding>
-            <element signature="method#StatusLine#0;class#StatusLine#0" expanded="false" />
-            <element signature="method#StatusLine#1;class#StatusLine#0" expanded="false" />
-            <element signature="docComment;class#ProtocolVersion#0;class#StatusLine#0" expanded="false" />
-            <element signature="class#ProtocolVersion#0;class#StatusLine#0" expanded="false" />
-            <element signature="e#1200#1201#0" expanded="true" />
-            <element signature="e#1280#1281#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/EStatusCodes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.64041096" vertical-offset="0" max-vertical-offset="584">
@@ -510,42 +518,97 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ConfigUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59246576" vertical-offset="334" max-vertical-offset="2108">
+          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Header.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+        <state vertical-scroll-proportion="0.08732877" vertical-offset="0" max-vertical-offset="584">
           <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ConfigUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/HttpMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="334" max-vertical-offset="2040">
-          <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="952">
+          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/StatusLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="method#StatusLine#0;class#StatusLine#0" expanded="false" />
+            <element signature="method#StatusLine#1;class#StatusLine#0" expanded="false" />
+            <element signature="e#628#629#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ProtocolVersion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HttpResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3757">
-          <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="4386">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
           <folding>
             <element signature="docComment;method#sendGetResponse#0;class#HttpResponse#0" expanded="false" />
             <element signature="docComment;method#sendErrorResponse#0;class#HttpResponse#0" expanded="false" />
             <element signature="docComment;method#sendPostResponse#0;class#HttpResponse#0" expanded="false" />
-            <element signature="method#sendPostResponse#0;class#HttpResponse#0" expanded="false" />
             <element signature="docComment;method#sendHeadResponse#0;class#HttpResponse#0" expanded="false" />
             <element signature="docComment;method#sendTraceResponse#0;class#HttpResponse#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/HttpRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="4301">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/WebServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.349315" vertical-offset="334" max-vertical-offset="1785">
-          <caret line="67" column="41" selection-start-line="67" selection-start-column="41" selection-end-line="67" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="2091">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TCPConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.018835617" vertical-offset="232" max-vertical-offset="2193">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="e#629#630#0" expanded="true" />
+            <element signature="e#658#659#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
