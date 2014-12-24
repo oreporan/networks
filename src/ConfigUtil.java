@@ -8,53 +8,56 @@ import java.io.FileReader;
  *
  */
 public class ConfigUtil {
-	
+
 	final static String CRLF = "\r\n";
-	
-	//Config.ini values
+
+	// Config.ini values
 	static int port = 8080;
 	static int maxThreads = 5;
 	static String root = "/serverroot/";
 	static String defaultPage = "index.html";
-	
-	//Config.ini keys
+
+	// Config.ini keys
 	final static String configPath = "config.ini";
 	final static String ROOT_CONFIG = "root";
 	final static String MAXTHREADS_CONFIG = "maxThreads";
 	final static String DEFAULTPAGE_CONFIG = "defaultPage";
 	final static String PORT_CONFIG = "port";
-	
-	//Supported methods
+
+	// Supported methods
 	public static final String GET = "GET";
 	public static final String POST = "POST";
 	public static final String OPTIONS = "OPTIONS";
 	public static final String HEAD = "HEAD";
 	public static final String TRACE = "TRACE";
 	final static String[] SUPPORTED_METHODS = { GET, POST, OPTIONS, HEAD, TRACE };
-	
+
 	// Protocols
 	public static final String DEFAULT_PROTOCOL = "HTTP/1.1";
 	final static String[] SUPPORTED_PROTOCOLS = { DEFAULT_PROTOCOL, "HTTP/1.0" };
-		
-	//Status codes
+
+	// Status codes
 	static final String BAD_REQUEST = "400 Bad Request";
 	static final String OK = "200 OK";
 	static final String STATUS_OK = DEFAULT_PROTOCOL + " " + OK + CRLF;
 	static final String UNIMPLEMENTED_METHOD = "501 Not Implemented";
 	static final String INTERNAL_ERROR = "500 Internal Server Error";
 	static final String NOT_FOUND = "404 Not Found";
-	
+
 	static final String[] SUPPORTED_IMG_FILES = { ".bmp", ".gif", ".png",
 			".jpg" };
 	public static final String CONTENT_TYPE_HTML = "text/html";
 	public static final String CONTENT_TYPE_IMAGE = "image";
 	public static final String CONTENT_TYPE_APPLICATION = "application/octet-stream";
-	public static final String CHUNK_HEADER_KEY = "transfer-encoding";
-	public static final String CHUNK_HEADER_VALUE = "chunked";
+	public static final String CHUNK_HEADER_KEY = "chunked";
+	public static final String CHUNK_HEADER_VALUE = "yes";
 	public static final String CONTENT_LENGTH_KEY = "Content-Length";
-	public static final int TIME_LAP_SEC = 1*1000;
+	public static final int TIME_LAP_SEC = 1 * 1000;
 	public static final int CONNECTION_TIMEOUT = 5;
 
+	public static final Object CONNECTION = "Connection";
+
+	public static final String KEEP_ALIVE = "keep-alive";
 
 	/**
 	 * Process the config file

@@ -16,13 +16,15 @@ import java.util.*;
 final class HttpRequest {
 
 	HashMap<String, String> headersMap;
+
 	HashMap<String, String> paramsMapGET;
+
 	HashMap<String, String> paramsMapPOST;
-	private String requestMethod;
-	private String requestPath;
+	String requestMethod;
+	String requestPath;
 	DataOutputStream sos;
 	PushbackInputStream sis;
-	private String requestProtocol;
+	String requestProtocol;
 	private boolean acceptChunks = false;
 	public boolean isPersistent = false;
 
@@ -81,9 +83,6 @@ final class HttpRequest {
 			// Validate the request
 			validateRequest(request);
 
-			// Send the response for this request
-			sendResponse();
-
 		} catch (WebServerException ex) {
 			new HttpResponse(sos, null, ConfigUtil.DEFAULT_PROTOCOL)
 					.sendErrorResponse(ex.getMessage());
@@ -112,32 +111,6 @@ final class HttpRequest {
 				// The params are not legal
 				throw new BadRequestException();
 			}
-		}
-
-	}
-
-	/*
-	 * Sends the response via the HttpResponse class
-	 */
-	private void sendResponse() throws Exception {
-		HttpResponse response = new HttpResponse(sos, requestPath,
-				requestProtocol);
-		if (this.requestMethod.equals(ConfigUtil.GET)) {
-			// GET request
-			response.sendGetResponse(paramsMapGET);
-		} else if (this.requestMethod.equals(ConfigUtil.POST)) {
-			// POST request
-			response.sendPostResponse(paramsMapPOST);
-		} else if (this.requestMethod.equals(ConfigUtil.OPTIONS)) {
-			// OPTIONS request
-			response.sendOptionsResponse();
-		} else if (this.requestMethod.equals(ConfigUtil.HEAD)) {
-			// HEAD request
-			response.sendHeadResponse();
-		} else if (this.requestMethod.equals(ConfigUtil.TRACE)) {
-			// TRACE request
-			response.sendTraceResponse(this.requestMethod, headersMap);
-
 		}
 
 	}
@@ -252,11 +225,25 @@ final class HttpRequest {
 
 	public void setRequestProtocol(String requestProtocol) {
 		this.requestProtocol = requestProtocol;
-		// Mark if his protocol is 1.0 or 1.1
-		if (requestProtocol.endsWith("1")) {
-			// This is 1.1 protocol
-			isPersistent = true;
-		}
 	}
 
+	public HashMap<String, String> getParamsMapGET() {
+		return paramsMapGET;
+	}
+
+	public HashMap<String, String> getParamsMapPOST() {
+		return paramsMapPOST;
+	}
+
+	public HashMap<String, String> getHeadersMap() {
+		return headersMap;
+	}
+
+	/*
+	 * Returns true if the TCP connection wants to stay alive
+	 */
+	public boolean isPersistent() {
+		return (headersMap.get(ConfigUtil.CONNECTION).equalsIgnoreCase(
+				ConfigUtil.KEEP_ALIVE) || requestProtocol.endsWith("1"));
+	}
 }
