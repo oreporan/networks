@@ -15,7 +15,7 @@ public class HttpResponse {
 	StatusLine statusLine;
 	String path;
 	String protocol;
-	String ok_status;
+	//String statusLine;
 	DataOutputStream os;
 
 	/*
@@ -27,7 +27,7 @@ public class HttpResponse {
 		this.path = i_path;
 		this.os = i_sos;
 		this.protocol = i_protocol;
-		this.ok_status = protocol + " " + ConfigUtil.OK + ConfigUtil.CRLF;
+		this.statusLine = new StatusLine(protocol + " " + ConfigUtil.OK + ConfigUtil.CRLF);
 
 	}
 
@@ -173,7 +173,7 @@ public class HttpResponse {
 		// Construct the response message.
 		try {
 			// Send the status line.
-			os.writeBytes(ok_status);
+			os.writeBytes(statusLine);
 
 			String contentType = "content-type: "
 					+ ConfigUtil.CONTENT_TYPE_HTML;
@@ -210,7 +210,7 @@ public class HttpResponse {
 	public void sendOptionsResponse() throws InternalErrorException {
 		try {
 			// Send the status line.
-			os.writeBytes(ok_status);
+			os.writeBytes(statusLine);
 			os.writeBytes(ConfigUtil.SUPPORTED_METHODS.toString());
 
 		} catch (Exception e) {
