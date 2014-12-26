@@ -22,8 +22,7 @@ public class WebServer {
 
 			// Establish the listen socket.
 			ServerSocket socket = new ServerSocket(ConfigUtil.getPort());
-			System.out.println("Listening on port: " + ConfigUtil.getPort()
-					+ ConfigUtil.CRLF);
+			System.out.println("Listening on port: " + ConfigUtil.getPort() + ConfigUtil.CRLF);
 			threadQueue = new HashMap<String, TCPConnection>();
 
 			ConfigUtil.init(); // Init the config file
@@ -38,17 +37,14 @@ public class WebServer {
 					Socket connection = socket.accept();
 
 					if (isNewConnection(connection)) {
-						// Construct an object to process the HTTP request
-						// message.
+						// Construct an object to process the HTTP request message.
 						TCPConnection client = new TCPConnection(connection);
-						String host = connection.getRemoteSocketAddress()
-								.toString();
+						String host = connection.getRemoteSocketAddress().toString();
 
 						// Create a new thread to process the request.
 						Thread thread = new Thread(client);
 						incrementThreadQueue(host, client);
-						System.out.println("Number of threads running: "
-								+ getNumberOfThreads() + ConfigUtil.CRLF);
+						System.out.println("Number of threads running: " + getNumberOfThreads() + ConfigUtil.CRLF);
 
 						// Start the thread.
 						thread.start();

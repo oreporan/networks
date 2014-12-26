@@ -12,9 +12,10 @@ import java.util.Map;
  *
  */
 public class HttpResponse {
+	StatusLine statusLine;
 	String path;
 	String protocol;
-	String ok_status;
+	//String statusLine;
 	DataOutputStream os;
 
 	/*
@@ -26,15 +27,15 @@ public class HttpResponse {
 		this.path = i_path;
 		this.os = i_sos;
 		this.protocol = i_protocol;
-		this.ok_status = protocol + " " + ConfigUtil.OK + ConfigUtil.CRLF;
+		this.statusLine = new StatusLine(protocol + " " + ConfigUtil.OK + ConfigUtil.CRLF);
 
 	}
 
+
+
 	/**
 	 * Send a Get response
-	 * 
-	 * @param socket
-	 * @param i_path
+	 *
 	 * @param paramsMapGET
 	 * @throws InternalErrorException
 	 */
@@ -76,10 +77,8 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Error Response
-	 * 
-	 * @param i_socket
+	 *
 	 * @param i_status
-	 * @param i_protocol
 	 */
 	public void sendErrorResponse(String i_status) {
 		try {
@@ -116,9 +115,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Post response
-	 * 
-	 * @param i_socket
-	 * @param i_requestPath
+	 *
 	 * @param i_paramsMapPOST
 	 * @throws InternalErrorException
 	 */
@@ -158,8 +155,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Head Response
-	 * 
-	 * @param socket
+	 *
 	 * @throws InternalErrorException
 	 */
 	public void sendHeadResponse() throws InternalErrorException {
@@ -169,12 +165,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends a Trace response
-	 * 
-	 * @param socket
-	 * @param requestMethod
-	 * @param requestPath
-	 * @param requestProtocol
-	 * @param headersMap
+	 *
 	 * @throws InternalErrorException
 	 */
 	public void sendTraceResponse(String i_requestMethod,
@@ -182,7 +173,7 @@ public class HttpResponse {
 		// Construct the response message.
 		try {
 			// Send the status line.
-			os.writeBytes(ok_status);
+			os.writeBytes(statusLine);
 
 			String contentType = "content-type: "
 					+ ConfigUtil.CONTENT_TYPE_HTML;
@@ -219,7 +210,7 @@ public class HttpResponse {
 	public void sendOptionsResponse() throws InternalErrorException {
 		try {
 			// Send the status line.
-			os.writeBytes(ok_status);
+			os.writeBytes(statusLine);
 			os.writeBytes(ConfigUtil.SUPPORTED_METHODS.toString());
 
 		} catch (Exception e) {
