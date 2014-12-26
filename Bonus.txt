@@ -1,0 +1,6 @@
+----Bonuses---
+
+1. Fully implemented persistent HTTP. 
+When processing the request, if the user is using an HTTP/1.1 or connection-keep alive, the server will follow this request. 
+The TCPconnection will stay alive and continue listening to new requests from this user until the timeout is done, and the server 
+does "garbage collection" for timed-out TCP connections
