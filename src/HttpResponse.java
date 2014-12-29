@@ -12,10 +12,9 @@ import java.util.Map;
  *
  */
 public class HttpResponse {
-	StatusLine statusLine;
 	String path;
 	String protocol;
-	//String statusLine;
+	String statusLine;
 	DataOutputStream os;
 
 	/*
@@ -27,7 +26,7 @@ public class HttpResponse {
 		this.path = i_path;
 		this.os = i_sos;
 		this.protocol = i_protocol;
-		this.statusLine = new StatusLine(protocol + " " + ConfigUtil.OK + ConfigUtil.CRLF);
+		this.statusLine = protocol + " " + ConfigUtil.OK + ConfigUtil.CRLF;
 
 	}
 
@@ -202,9 +201,7 @@ public class HttpResponse {
 
 	/**
 	 * Sends an Option Response
-	 * 
-	 * @param socket
-	 * @param requestPath
+	 *
 	 * @throws InternalErrorException
 	 */
 	public void sendOptionsResponse() throws InternalErrorException {
