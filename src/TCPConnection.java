@@ -38,12 +38,11 @@ public class TCPConnection implements Runnable {
 
 				// Create request
 				HttpRequest request = new HttpRequest(sis);
-				request.processRequest();
 				// Create response
-				HttpResponse response = new HttpResponse(sos,
-						request.getRequestPath(), request.getRequestProtocol());
+				HttpResponse response = new HttpResponse(request);
 				// Send response
-				sendResponse(request, response);
+				response.writeTo(sos);
+				//sendResponse(request, response);
 
 				// Begin time stamp
 				setTimeStamp(System.currentTimeMillis());
