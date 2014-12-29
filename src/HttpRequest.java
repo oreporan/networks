@@ -35,6 +35,7 @@ final class HttpRequest {
 			throws Exception {
 		this.sis = i_sis;
 		headersMap = new HashMap<String, String>();
+		processRequest();
 	}
 
 	/*

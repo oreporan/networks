@@ -32,6 +32,12 @@ public class HttpResponse {
 
 
 
+	public HttpResponse(HttpRequest request) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	/**
 	 * Send a Get response
 	 *
@@ -270,6 +276,13 @@ public class HttpResponse {
 
 		}
 		throw new InternalErrorException();
+	}
+
+
+
+	public void writeTo(DataOutputStream sos) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
